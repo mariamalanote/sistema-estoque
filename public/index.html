@@ -99,6 +99,25 @@ button[onclick^="mostrarFormularioEdicao"] {
     <h1>Sistema de Estoque</h1>
   </header>
   <main>
+    <!-- Formulário de login -->
+  <section id="login">
+    <h2>Login</h2>
+    <div class="form-group">
+      <label for="username">Usuário:</label>
+      <input type="text" id="username" />
+    </div>
+    <div class="form-group">
+      <label for="password">Senha:</label>
+      <input type="password" id="password" />
+    </div>
+    <button onclick="login()">Entrar</button>
+  </section>
+
+  <!-- Perfil/Estoque (aparece após login) -->
+  <section id="perfil" style="display:none;">
+    <h2>Bem-vindo, <span id="nome-usuario"></span></h2>
+    <button onclick="logout()">Sair</button>
+    
     <section>
       <h2>Adicionar Produto</h2>
       <div class="form-group">
@@ -200,5 +219,7 @@ button[onclick^="mostrarFormularioEdicao"] {
 
     window.onload = carregarEstoque;
   </script>
+  
+  <script src="script.js"></script>
 </body>
 </html>
