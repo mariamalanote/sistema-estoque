@@ -4,8 +4,8 @@
   "description": "Sistema de estoque simples com Node.js e Express",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js"
-  },
+  "start": "node sistema-estoque/app.js"
+},
   "keywords": [],
   "author": "",
   "license": "ISC",
