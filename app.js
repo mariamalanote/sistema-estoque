@@ -1,51 +1,39 @@
 const express = require('express');
-const fs = require('fs');
 const path = require('path');
+const fs = require('fs');
+
 const app = express();
+const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
+app.use(express.static(__dirname)); // Serve index.html
 
-// Usar a variável de ambiente PORT fornecida pelo Render
-const PORT = process.env.PORT;
+let estoque = require('./estoque.json');
 
-// Caminho absoluto para o arquivo JSON
-const FILE = path.join(__dirname, 'sistema-estoque', 'estoque.json');
-
-// Rota para a raiz
-app.get('/', (req, res) => {
-    res.send('Bem-vindo ao Sistema de Estoque!');
-});
-
-// Rota para listar produtos
+// Endpoint para obter estoque
 app.get('/estoque', (req, res) => {
-    try {
-        const data = fs.readFileSync(FILE, 'utf-8');
-        res.json(JSON.parse(data));
-    } catch (err) {
-        res.status(500).send('Erro ao ler o estoque');
-    }
+  res.json(estoque);
 });
 
-// Rota para vender produto
+// Endpoint para vender
 app.post('/vender', (req, res) => {
-    const { id, quantidade } = req.body;
+  const { id, quantidade } = req.body;
+  const produto = estoque.find(p => p.id === id);
 
-    try {
-        const data = JSON.parse(fs.readFileSync(FILE, 'utf-8'));
-        const produto = data.find(item => item.id === id);
+  if (!produto) return res.status(404).send('Produto não encontrado');
+  if (produto.quantidade < quantidade) return res.status(400).send('Estoque insuficiente');
 
-        if (produto && produto.quantidade >= quantidade) {
-            produto.quantidade -= quantidade;
-            fs.writeFileSync(FILE, JSON.stringify(data, null, 2));
-            res.send('Venda registrada!');
-        } else {
-            res.status(400).send('Produto não encontrado ou estoque insuficiente');
-        }
-    } catch (err) {
-        res.status(500).send('Erro ao processar a venda');
-    }
+  produto.quantidade -= quantidade;
+
+  fs.writeFileSync('./estoque.json', JSON.stringify(estoque, null, 2));
+  res.send('Venda registrada com sucesso');
+});
+
+// Garante que / carrega o HTML
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
 app.listen(PORT, () => {
-    console.log(`Servidor rodando na porta ${PORT}`);
+  console.log(`Servidor rodando na porta ${PORT}`);
 });
