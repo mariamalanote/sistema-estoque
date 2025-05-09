@@ -1,16 +1,15 @@
 {
-  "dependencies": {
-    "express": "^5.1.0"
-  },
-  "name": "visualcode",
+  "name": "sistema-estoque",
   "version": "1.0.0",
+  "description": "Sistema de estoque simples com Node.js e Express",
   "main": "app.js",
-  "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+  "start": "node sistema-estoque/app.js"
+},
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": ""
+  "dependencies": {
+    "express": "^4.18.2"
+  }
 }
