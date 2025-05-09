@@ -113,6 +113,21 @@
       <button onclick="login()">Entrar</button>
     </section>
 
+    <p><a href="#" onclick="mostrarCadastro()">Criar nova conta</a></p>
+    <section id="cadastro" style="display:none;">
+  <h2>Cadastrar novo usuário</h2>
+  <div class="form-group">
+    <label for="novo-username">Novo Usuário:</label>
+    <input type="text" id="novo-username" />
+  </div>
+  <div class="form-group">
+    <label for="novo-password">Senha:</label>
+    <input type="password" id="novo-password" />
+  </div>
+  <button onclick="cadastrar()">Cadastrar</button>
+  <button onclick="voltarLogin()">Voltar</button>
+</section>
+
     <!-- Perfil/Estoque (aparece após login) -->
     <section id="perfil" style="display:none;">
       <h2>Bem-vindo, <span id="nome-usuario"></span></h2>

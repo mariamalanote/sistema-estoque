@@ -7,7 +7,7 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
-app.use(express.static(path.join(__dirname, 'public'))); // Garante que o index.html está na pasta public
+app.use(express.static(path.join(__dirname, 'public')));
 
 // Configuração da sessão
 app.use(session({
@@ -19,14 +19,15 @@ app.use(session({
 let estoque = require('./estoque.json');
 
 // Lista de usuários
-let usuarios = [
-  { username: 'cliente1', password: 'senha123' },
-  { username: 'cliente2', password: 'senha456' }
-];
+function carregarUsuarios() {
+  const dados = fs.readFileSync('./usuarios.json');
+  return JSON.parse(dados);
+}
 
 // Login
 app.post('/login', (req, res) => {
   const { username, password } = req.body;
+  const usuarios = carregarUsuarios();
   const usuario = usuarios.find(u => u.username === username && u.password === password);
 
   if (usuario) {
@@ -42,6 +43,20 @@ app.post('/logout', (req, res) => {
   req.session.destroy(() => {
     res.send('Logout bem-sucedido');
   });
+});
+
+app.post('/cadastrar', (req, res) => {
+  const { username, password } = req.body;
+  const usuarios = carregarUsuarios();
+
+  if (usuarios.find(u => u.username === username)) {
+    return res.status(400).send('Usuário já existe');
+  }
+
+  usuarios.push({ username, password });
+  fs.writeFileSync('./usuarios.json', JSON.stringify(usuarios, null, 2));
+
+  res.send('Usuário cadastrado com sucesso');
 });
 
 // Middleware de verificação
