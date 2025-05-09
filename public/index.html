@@ -6,58 +6,92 @@
   <title>Sistema de Estoque</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background: #f4f4f4;
-      margin: 0;
-      padding: 0;
-    }
-    header {
-      background: #4CAF50;
-      color: white;
-      padding: 1rem;
-      text-align: center;
-    }
-    main {
-      padding: 2rem;
-      max-width: 800px;
-      margin: auto;
-      background: white;
-      border-radius: 8px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    }
-    h2 {
-      margin-top: 0;
-    }
-    .form-group {
-      margin-bottom: 1rem;
-    }
-    label {
-      display: block;
-      margin-bottom: 0.5rem;
-    }
-    input, button {
-      padding: 0.5rem;
-      width: 100%;
-      margin-top: 0.2rem;
-    }
-    button {
-      background: #4CAF50;
-      color: white;
-      border: none;
-      cursor: pointer;
-    }
-    button:hover {
-      background: #45a049;
-    }
-    #estoque {
-      margin-top: 2rem;
-    }
-    .produto {
-      background: #eee;
-      padding: 1rem;
-      margin-bottom: 1rem;
-      border-left: 5px solid #4CAF50;
-    }
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #e9ecef;
+  margin: 0;
+  padding: 0;
+  color: #333;
+}
+
+header {
+  background: #343a40;
+  color: white;
+  padding: 1.5rem;
+  text-align: center;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+main {
+  padding: 2rem;
+  max-width: 900px;
+  margin: auto;
+  background: white;
+  border-radius: 10px;
+  margin-top: 2rem;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+h2 {
+  margin-top: 0;
+  color: #007bff;
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+label {
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+input {
+  padding: 0.5rem;
+  width: 100%;
+  margin-top: 0.2rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+button {
+  background: #007bff;
+  color: white;
+  padding: 0.6rem 1rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 0.5rem;
+  transition: background 0.3s;
+}
+
+button:hover {
+  background: #0056b3;
+}
+
+.produto {
+  background: #f8f9fa;
+  padding: 1rem;
+  margin-bottom: 1.2rem;
+  border-left: 5px solid #007bff;
+  border-radius: 8px;
+}
+
+.produto input {
+  margin-top: 0.5rem;
+}
+
+#estoque {
+  margin-top: 2rem;
+}
+
+button[onclick^="mostrarFormularioEdicao"] {
+  background: transparent;
+  color: #007bff;
+  font-size: 0.9rem;
+  border: none;
+  padding: 0.2rem;
+  margin-left: 0.5rem;
+}
   </style>
 </head>
 <body>
