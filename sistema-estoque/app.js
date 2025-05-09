@@ -5,8 +5,8 @@ const app = express();
 
 app.use(express.json());
 
-// Use a variável de ambiente PORT (Render define isso automaticamente)
-const PORT = process.env.PORT || 3000;
+// Usar a variável de ambiente PORT fornecida pelo Render
+const PORT = process.env.PORT;
 
 // Caminho absoluto para o arquivo JSON
 const FILE = path.join(__dirname, 'sistema-estoque', 'estoque.json');
