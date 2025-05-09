@@ -11,6 +11,11 @@ const PORT = process.env.PORT;
 // Caminho absoluto para o arquivo JSON
 const FILE = path.join(__dirname, 'sistema-estoque', 'estoque.json');
 
+// Rota para a raiz
+app.get('/', (req, res) => {
+    res.send('Bem-vindo ao Sistema de Estoque!');
+});
+
 // Rota para listar produtos
 app.get('/estoque', (req, res) => {
     try {
