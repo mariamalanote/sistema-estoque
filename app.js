@@ -51,8 +51,8 @@ app.put('/editar', (req, res) => {
 
   if (!produto) return res.status(404).send('Produto não encontrado');
 
-  if (nome) produto.nome = nome;
-  if (quantidade !== undefined) produto.quantidade = quantidade;
+  produto.nome = nome;
+  produto.quantidade = quantidade;
 
   fs.writeFileSync('./estoque.json', JSON.stringify(estoque, null, 2));
   res.send('Produto editado com sucesso');
