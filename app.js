@@ -29,6 +29,35 @@ app.post('/vender', (req, res) => {
   res.send('Venda registrada com sucesso');
 });
 
+// Adicionar novo produto
+app.post('/adicionar', (req, res) => {
+  const { id, nome, quantidade } = req.body;
+
+  if (estoque.find(p => p.id === id)) {
+    return res.status(400).send('ID já existe');
+  }
+
+  const novoProduto = { id, nome, quantidade };
+  estoque.push(novoProduto);
+
+  fs.writeFileSync('./estoque.json', JSON.stringify(estoque, null, 2));
+  res.send('Produto adicionado com sucesso');
+});
+
+// Editar produto existente
+app.put('/editar', (req, res) => {
+  const { id, nome, quantidade } = req.body;
+  const produto = estoque.find(p => p.id === id);
+
+  if (!produto) return res.status(404).send('Produto não encontrado');
+
+  if (nome) produto.nome = nome;
+  if (quantidade !== undefined) produto.quantidade = quantidade;
+
+  fs.writeFileSync('./estoque.json', JSON.stringify(estoque, null, 2));
+  res.send('Produto editado com sucesso');
+});
+
 // Garante que / carrega o HTML
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
