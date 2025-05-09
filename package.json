@@ -1,11 +1,11 @@
 {
   "name": "sistema-estoque",
   "version": "1.0.0",
-  "description": "Sistema de estoque simples com Node.js e Express",
+  "description": "Sistema de controle de estoque simples com Express",
   "main": "app.js",
   "scripts": {
-  "start": "node sistema-estoque/app.js"
-},
+    "start": "node app.js"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
