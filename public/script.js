@@ -20,6 +20,30 @@ async function login() {
   }
 }
 
+// Função de login
+async function login() {
+  console.log('Tentando logar...'); // Verifique se essa linha aparece no console
+
+  const username = document.getElementById('username').value;
+  const password = document.getElementById('password').value;
+
+  const res = await fetch('/login', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ username, password })
+  });
+
+  const texto = await res.text();
+  alert(texto);
+
+  if (res.ok) {
+    document.getElementById('perfil').style.display = 'block';
+    document.getElementById('nome-usuario').innerText = username;
+    document.getElementById('login').style.display = 'none'; // Esconde a tela de login
+    carregarEstoque(); // Carrega os produtos após o login
+  }
+}
+
 // Função de logout
 async function logout() {
   const res = await fetch('/logout', { method: 'POST' });
