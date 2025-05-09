@@ -6,92 +6,88 @@
   <title>Sistema de Estoque</title>
   <style>
     body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: #e9ecef;
-  margin: 0;
-  padding: 0;
-  color: #333;
-}
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #e9ecef;
+      margin: 0;
+      padding: 0;
+      color: #333;
+    }
 
-header {
-  background: #343a40;
-  color: white;
-  padding: 1.5rem;
-  text-align: center;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-}
+    header {
+      background: #343a40;
+      color: white;
+      padding: 1.5rem;
+      text-align: center;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    }
 
-main {
-  padding: 2rem;
-  max-width: 900px;
-  margin: auto;
-  background: white;
-  border-radius: 10px;
-  margin-top: 2rem;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-}
+    main {
+      padding: 2rem;
+      max-width: 900px;
+      margin: auto;
+      background: white;
+      border-radius: 10px;
+      margin-top: 2rem;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
 
-h2 {
-  margin-top: 0;
-  color: #007bff;
-}
+    h2 {
+      margin-top: 0;
+      color: #007bff;
+    }
 
-.form-group {
-  margin-bottom: 1rem;
-}
+    .form-group {
+      margin-bottom: 1rem;
+    }
 
-label {
-  display: block;
-  margin-bottom: 0.5rem;
-}
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+    }
 
-input {
-  padding: 0.5rem;
-  width: 100%;
-  margin-top: 0.2rem;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-}
+    input {
+      padding: 0.5rem;
+      width: 100%;
+      margin-top: 0.2rem;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
 
-button {
-  background: #007bff;
-  color: white;
-  padding: 0.6rem 1rem;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  margin-top: 0.5rem;
-  transition: background 0.3s;
-}
+    button {
+      background: #007bff;
+      color: white;
+      padding: 0.6rem 1rem;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 0.5rem;
+      transition: background 0.3s;
+    }
 
-button:hover {
-  background: #0056b3;
-}
+    button:hover {
+      background: #0056b3;
+    }
 
-.produto {
-  background: #f8f9fa;
-  padding: 1rem;
-  margin-bottom: 1.2rem;
-  border-left: 5px solid #007bff;
-  border-radius: 8px;
-}
+    .produto {
+      background: #f8f9fa;
+      padding: 1rem;
+      margin-bottom: 1.2rem;
+      border-left: 5px solid #007bff;
+      border-radius: 8px;
+    }
 
-.produto input {
-  margin-top: 0.5rem;
-}
+    #estoque {
+      margin-top: 2rem;
+    }
 
-#estoque {
-  margin-top: 2rem;
-}
-
-button[onclick^="mostrarFormularioEdicao"] {
-  background: transparent;
-  color: #007bff;
-  font-size: 0.9rem;
-  border: none;
-  padding: 0.2rem;
-  margin-left: 0.5rem;
-}
+    button[onclick^="mostrarFormularioEdicao"] {
+      background: transparent;
+      color: #007bff;
+      font-size: 0.9rem;
+      border: none;
+      padding: 0.2rem;
+      margin-left: 0.5rem;
+    }
   </style>
 </head>
 <body>
@@ -99,127 +95,49 @@ button[onclick^="mostrarFormularioEdicao"] {
     <h1>Sistema de Estoque</h1>
   </header>
   <main>
-    <!-- Formulário de login -->
-  <section id="login">
-    <h2>Login</h2>
-    <div class="form-group">
-      <label for="username">Usuário:</label>
-      <input type="text" id="username" />
-    </div>
-    <div class="form-group">
-      <label for="password">Senha:</label>
-      <input type="password" id="password" />
-    </div>
-    <button onclick="login()">Entrar</button>
-  </section>
-
-  <!-- Perfil/Estoque (aparece após login) -->
-  <section id="perfil" style="display:none;">
-    <h2>Bem-vindo, <span id="nome-usuario"></span></h2>
-    <button onclick="logout()">Sair</button>
-    
-    <section>
-      <h2>Adicionar Produto</h2>
+    <!-- Tela de Login -->
+    <section id="login">
+      <h2>Login</h2>
       <div class="form-group">
-        <label for="novo-id">ID:</label>
-        <input type="number" id="novo-id" />
+        <label for="username">Usuário:</label>
+        <input type="text" id="username" />
       </div>
       <div class="form-group">
-        <label for="novo-nome">Nome:</label>
-        <input type="text" id="novo-nome" />
+        <label for="password">Senha:</label>
+        <input type="password" id="password" />
       </div>
-      <div class="form-group">
-        <label for="novo-quantidade">Quantidade:</label>
-        <input type="number" id="novo-quantidade" />
-      </div>
-      <button onclick="adicionar()">Adicionar</button>
+      <button onclick="login()">Entrar</button>
     </section>
 
-  async function editar(id) {
-  const nome = document.getElementById(`editar-nome-${id}`).value;
-  const quantidade = parseInt(document.getElementById(`editar-quantidade-${id}`).value);
+    <!-- Tela de Estoque após login -->
+    <section id="perfil" style="display:none;">
+      <h2>Bem-vindo, <span id="nome-usuario"></span></h2>
+      <button onclick="logout()">Sair</button>
 
-  const res = await fetch('/editar', {
-    method: 'PUT',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ id, nome, quantidade })
-  });
+      <section>
+        <h2>Adicionar Produto</h2>
+        <div class="form-group">
+          <label for="novo-id">ID:</label>
+          <input type="number" id="novo-id" />
+        </div>
+        <div class="form-group">
+          <label for="novo-nome">Nome:</label>
+          <input type="text" id="novo-nome" />
+        </div>
+        <div class="form-group">
+          <label for="novo-quantidade">Quantidade:</label>
+          <input type="number" id="novo-quantidade" />
+        </div>
+        <button onclick="adicionar()">Adicionar</button>
+      </section>
 
-  const texto = await res.text();
-  alert(texto);
-  carregarEstoque();
-}
-
-    <section id="estoque">
-      <h2>Estoque Atual</h2>
-      <div id="lista-produtos"></div>
+      <section id="estoque">
+        <h2>Estoque Atual</h2>
+        <div id="lista-produtos"></div>
+      </section>
     </section>
   </main>
 
-  <script>
-    async function carregarEstoque() {
-      try {
-        const res = await fetch('/estoque');
-        const data = await res.json();
-        const container = document.getElementById('lista-produtos');
-        container.innerHTML = data.map(produto => `
-  <div class="produto">
-    <div style="display: flex; justify-content: space-between; align-items: center;">
-      <strong>${produto.nome}</strong>
-      <button onclick="mostrarFormularioEdicao(${produto.id})">✏️ Editar</button>
-    </div>
-    ID: ${produto.id}<br/>
-    Quantidade: ${produto.quantidade}
-    <div id="form-editar-${produto.id}" style="display:none; margin-top: 1rem;">
-      <input type="text" id="editar-nome-${produto.id}" placeholder="Novo nome" />
-      <input type="number" id="editar-quantidade-${produto.id}" placeholder="Nova quantidade" />
-      <button onclick="editar(${produto.id})">Salvar</button>
-    </div>
-  </div>
-`).join('');
-      } catch (error) {
-        console.error('Erro ao carregar estoque:', error);
-      }
-    }
-    function mostrarFormularioEdicao(id) {
-  document.getElementById(`form-editar-${id}`).style.display = 'block';
-}
-
-    async function adicionar() {
-      const id = parseInt(document.getElementById('novo-id').value);
-      const nome = document.getElementById('novo-nome').value;
-      const quantidade = parseInt(document.getElementById('novo-quantidade').value);
-
-      const res = await fetch('/adicionar', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ id, nome, quantidade })
-      });
-
-      const texto = await res.text();
-      alert(texto);
-      carregarEstoque();
-    }
-
-    async function editar() {
-      const id = parseInt(document.getElementById('editar-id').value);
-      const nome = document.getElementById('editar-nome').value;
-      const quantidade = parseInt(document.getElementById('editar-quantidade').value);
-
-      const res = await fetch('/editar', {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ id, nome, quantidade })
-      });
-
-      const texto = await res.text();
-      alert(texto);
-      carregarEstoque();
-    }
-
-    window.onload = carregarEstoque;
-  </script>
-  
   <script src="script.js"></script>
 </body>
 </html>
