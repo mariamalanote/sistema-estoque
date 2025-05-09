@@ -15,23 +15,22 @@ async function login() {
   if (res.ok) {
     document.getElementById('perfil').style.display = 'block';
     document.getElementById('nome-usuario').innerText = username;
-    document.getElementById('login').style.display = 'none'; // Esconde a tela de login
-    carregarEstoque(); // Carrega os produtos após o login
+    document.getElementById('login').style.display = 'none';
+    carregarEstoque();
   }
 }
 
 // Função de logout
 async function logout() {
   const res = await fetch('/logout', { method: 'POST' });
-
   const texto = await res.text();
   alert(texto);
 
   document.getElementById('perfil').style.display = 'none';
-  document.getElementById('login').style.display = 'block'; // Exibe a tela de login novamente
+  document.getElementById('login').style.display = 'block';
 }
 
-// Função para carregar o estoque (após login)
+// Carregar lista de produtos
 async function carregarEstoque() {
   try {
     const res = await fetch('/estoque');
@@ -57,7 +56,24 @@ async function carregarEstoque() {
   }
 }
 
-// Função para editar produto (já existente no seu código)
+// Adicionar novo produto
+async function adicionar() {
+  const id = parseInt(document.getElementById('novo-id').value);
+  const nome = document.getElementById('novo-nome').value;
+  const quantidade = parseInt(document.getElementById('novo-quantidade').value);
+
+  const res = await fetch('/adicionar', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ id, nome, quantidade })
+  });
+
+  const texto = await res.text();
+  alert(texto);
+  carregarEstoque();
+}
+
+// Editar produto
 async function editar(id) {
   const nome = document.getElementById(`editar-nome-${id}`).value;
   const quantidade = parseInt(document.getElementById(`editar-quantidade-${id}`).value);
@@ -73,7 +89,7 @@ async function editar(id) {
   carregarEstoque();
 }
 
-// Função para mostrar o formulário de edição de um produto
+// Mostrar formulário de edição
 function mostrarFormularioEdicao(id) {
   document.getElementById(`form-editar-${id}`).style.display = 'block';
 }
