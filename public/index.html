@@ -82,22 +82,20 @@
       <button onclick="adicionar()">Adicionar</button>
     </section>
 
-    <section>
-      <h2>Editar Produto</h2>
-      <div class="form-group">
-        <label for="editar-id">ID do Produto:</label>
-        <input type="number" id="editar-id" />
-      </div>
-      <div class="form-group">
-        <label for="editar-nome">Novo Nome:</label>
-        <input type="text" id="editar-nome" />
-      </div>
-      <div class="form-group">
-        <label for="editar-quantidade">Nova Quantidade:</label>
-        <input type="number" id="editar-quantidade" />
-      </div>
-      <button onclick="editar()">Editar</button>
-    </section>
+  async function editar(id) {
+  const nome = document.getElementById(`editar-nome-${id}`).value;
+  const quantidade = parseInt(document.getElementById(`editar-quantidade-${id}`).value);
+
+  const res = await fetch('/editar', {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ id, nome, quantidade })
+  });
+
+  const texto = await res.text();
+  alert(texto);
+  carregarEstoque();
+}
 
     <section id="estoque">
       <h2>Estoque Atual</h2>
@@ -112,16 +110,27 @@
         const data = await res.json();
         const container = document.getElementById('lista-produtos');
         container.innerHTML = data.map(produto => `
-          <div class="produto">
-            <strong>${produto.nome}</strong><br/>
-            ID: ${produto.id}<br/>
-            Quantidade: ${produto.quantidade}
-          </div>
-        `).join('');
+  <div class="produto">
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+      <strong>${produto.nome}</strong>
+      <button onclick="mostrarFormularioEdicao(${produto.id})">✏️ Editar</button>
+    </div>
+    ID: ${produto.id}<br/>
+    Quantidade: ${produto.quantidade}
+    <div id="form-editar-${produto.id}" style="display:none; margin-top: 1rem;">
+      <input type="text" id="editar-nome-${produto.id}" placeholder="Novo nome" />
+      <input type="number" id="editar-quantidade-${produto.id}" placeholder="Nova quantidade" />
+      <button onclick="editar(${produto.id})">Salvar</button>
+    </div>
+  </div>
+`).join('');
       } catch (error) {
         console.error('Erro ao carregar estoque:', error);
       }
     }
+    function mostrarFormularioEdicao(id) {
+  document.getElementById(`form-editar-${id}`).style.display = 'block';
+}
 
     async function adicionar() {
       const id = parseInt(document.getElementById('novo-id').value);
