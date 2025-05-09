@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Sistema de Estoque</title>
+</head>
+<body>
+  <h1>Estoque</h1>
+  <ul id="lista-estoque"></ul>
+
+  <h2>Vender Produto</h2>
+  <form id="form-venda">
+    <label for="id">ID do Produto:</label>
+    <input type="number" id="id" required><br>
+
+    <label for="quantidade">Quantidade:</label>
+    <input type="number" id="quantidade" required><br>
+
+    <button type="submit">Vender</button>
+  </form>
+
+  <p id="mensagem"></p>
+
+  <script>
+    async function carregarEstoque() {
+      const resposta = await fetch('http://localhost:3000/estoque');
+      const estoque = await resposta.json();
+
+      const lista = document.getElementById('lista-estoque');
+      lista.innerHTML = '';
+      estoque.forEach(item => {
+        const li = document.createElement('li');
+        li.textContent = `ID: ${item.id} | ${item.nome} - Quantidade: ${item.quantidade}`;
+        lista.appendChild(li);
+      });
+    }
+
+    document.getElementById('form-venda').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const id = document.getElementById('id').value;
+      const quantidade = document.getElementById('quantidade').value;
+
+      const resposta = await fetch('http://localhost:3000/vender', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id: Number(id), quantidade: Number(quantidade) })
+      });
+
+      const mensagem = await resposta.text();
+      document.getElementById('mensagem').textContent = mensagem;
+
+      carregarEstoque(); // atualiza a lista
+    });
+
+    carregarEstoque(); // carregar ao abrir
+  </script>
+</body>
+</html>
