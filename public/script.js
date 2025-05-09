@@ -15,22 +15,23 @@ async function login() {
   if (res.ok) {
     document.getElementById('perfil').style.display = 'block';
     document.getElementById('nome-usuario').innerText = username;
-    document.getElementById('login').style.display = 'none';
-    carregarEstoque();
+    document.getElementById('login').style.display = 'none'; // Esconde a tela de login
+    carregarEstoque(); // Carrega os produtos após o login
   }
 }
 
 // Função de logout
 async function logout() {
   const res = await fetch('/logout', { method: 'POST' });
+
   const texto = await res.text();
   alert(texto);
 
   document.getElementById('perfil').style.display = 'none';
-  document.getElementById('login').style.display = 'block';
+  document.getElementById('login').style.display = 'block'; // Exibe a tela de login novamente
 }
 
-// Carregar lista de produtos
+// Função para carregar o estoque (após login)
 async function carregarEstoque() {
   try {
     const res = await fetch('/estoque');
@@ -56,7 +57,28 @@ async function carregarEstoque() {
   }
 }
 
-// Adicionar novo produto
+// Função para editar produto
+async function editar(id) {
+  const nome = document.getElementById(`editar-nome-${id}`).value;
+  const quantidade = parseInt(document.getElementById(`editar-quantidade-${id}`).value);
+
+  const res = await fetch('/editar', {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ id, nome, quantidade })
+  });
+
+  const texto = await res.text();
+  alert(texto);
+  carregarEstoque();
+}
+
+// Função para mostrar o formulário de edição de um produto
+function mostrarFormularioEdicao(id) {
+  document.getElementById(`form-editar-${id}`).style.display = 'block';
+}
+
+// Função para adicionar produto
 async function adicionar() {
   const id = parseInt(document.getElementById('novo-id').value);
   const nome = document.getElementById('novo-nome').value;
@@ -73,23 +95,4 @@ async function adicionar() {
   carregarEstoque();
 }
 
-// Editar produto
-async function editar(id) {
-  const nome = document.getElementById(`editar-nome-${id}`).value;
-  const quantidade = parseInt(document.getElementById(`editar-quantidade-${id}`).value);
-
-  const res = await fetch('/editar', {
-    method: 'PUT',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ id, nome, quantidade })
-  });
-
-  const texto = await res.text();
-  alert(texto);
-  carregarEstoque();
-}
-
-// Mostrar formulário de edição
-function mostrarFormularioEdicao(id) {
-  document.getElementById(`form-editar-${id}`).style.display = 'block';
-}
+window.onload = carregarEstoque;

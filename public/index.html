@@ -76,6 +76,10 @@
       border-radius: 8px;
     }
 
+    .produto input {
+      margin-top: 0.5rem;
+    }
+
     #estoque {
       margin-top: 2rem;
     }
@@ -95,7 +99,7 @@
     <h1>Sistema de Estoque</h1>
   </header>
   <main>
-    <!-- Tela de Login -->
+    <!-- Formulário de login -->
     <section id="login">
       <h2>Login</h2>
       <div class="form-group">
@@ -109,11 +113,11 @@
       <button onclick="login()">Entrar</button>
     </section>
 
-    <!-- Tela de Estoque após login -->
+    <!-- Perfil/Estoque (aparece após login) -->
     <section id="perfil" style="display:none;">
       <h2>Bem-vindo, <span id="nome-usuario"></span></h2>
       <button onclick="logout()">Sair</button>
-
+      
       <section>
         <h2>Adicionar Produto</h2>
         <div class="form-group">
